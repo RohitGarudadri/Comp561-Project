@@ -1,0 +1,4 @@
+The number and decimal before the colon is the sequence number and the copy number
+(Ex 1.2 means first query sequence, second copy)
+After colon it says index and what the modification was 
+(Ex 5 to _ means fifth nuc deleted   ***a plus sign means an insert didn't think we cared ab what is inserted so I left it ambiguous***)
