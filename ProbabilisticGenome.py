@@ -1,22 +1,26 @@
+from operator import indexOf
 import os
 import operator
 import json
-from math import log10 as log
+import datetime
+from math import log10, inf, isinf, ceil
 from itertools import repeat
 from collections import defaultdict
 __location__ = os.path.realpath(
     os.path.join(os.getcwd(), os.path.dirname(__file__)))
+# Very small valued number for log(0) equivalent
+zero = 10**-200
 
 
 def parseGenome():
     probability_file = "Probabilities.txt"
     genome_file = "Genome.txt"
-    # if os.path.exists(os.path.join(__location__, "Genome_probabilities.json")):
-    #     with open(os.path.join(__location__, "Genome_probabilities.json"), "r") as my_file:
-    #         probability_dictionary = json.load(my_file)
-    #     with open(os.path.join(__location__, genome_file), "r") as my_file:
-    #         genome = my_file.readline().strip()
-    #     return genome, probability_dictionary
+    if os.path.exists(os.path.join(__location__, "Genome_probabilities.json")):
+        with open(os.path.join(__location__, "Genome_probabilities.json"), "r") as my_file:
+            probability_dictionary = json.load(my_file)
+        with open(os.path.join(__location__, genome_file), "r") as my_file:
+            genome = my_file.readline().strip()
+        return genome, probability_dictionary
 
     # Extract data from files
     with open(os.path.join(__location__, genome_file),  "r") as my_file:
@@ -66,29 +70,29 @@ def preprocess():
     size_8_mers = defaultdict(list)
     for i in range(len(genome)-8):
         seq8 = genome[i:i+8]
-        max_prob8 = 1
+        max_prob8 = 0
         score8 = 0
         for j in range(i, i+8):
             val = probability_dictionary[str(j)][genome[j]]
-            max_prob8 += log(val)
+            max_prob8 += Log(val)
             score8 += val
         size_8_mers[seq8].append([i, max_prob8, score8])
         if (i < len(genome) - 11):
             seq11 = genome[i:i+11]
-            max_prob11 = 1
+            max_prob11 = 0
             score11 = 0
             for j in range(i, i+11):
                 val = probability_dictionary[str(j)][genome[j]]
-                max_prob11 += log(val)
+                max_prob11 += Log(val)
                 score11 += val
             size_11_mers[seq11].append([i, max_prob11, score11])
         if (i < len(genome) - 15):
             seq15 = genome[i:i+15]
-            max_prob15 = 1
+            max_prob15 = 0
             score15 = 0
             for j in range(i, i+15):
                 val = probability_dictionary[str(j)][genome[j]]
-                max_prob15 += log(val)
+                max_prob15 += Log(val)
                 score15 += val
             size_15_mers[seq15].append([i, max_prob15, score15])
 
@@ -119,13 +123,20 @@ def shortPerfectMatch(query, w=11):
     return matches
 
 
+def Log(x):
+    if x <= 0:
+        return log10(zero)
+    else:
+        return log10(x)
+
+
 def score(nucleotide, index):
     vals = probability_dictionary[str(index)]
     best_nucleotide = max(vals.items(), key=operator.itemgetter(1))[0]
     if nucleotide == best_nucleotide:
-        return vals[nucleotide], log(vals[nucleotide])
+        return vals[nucleotide], Log(vals[nucleotide])
     else:
-        return vals[nucleotide] - vals[best_nucleotide], log(vals[nucleotide])
+        return vals[nucleotide] - vals[best_nucleotide], Log(vals[nucleotide])
 
 
 def ungappedExtension(query, matches):
@@ -140,7 +151,7 @@ def ungappedExtension(query, matches):
                                                                                          start_index, query, match[0], 1)
                 extended_sequence = query[left_index: right_index+1]
                 score = right_maxima + match[-1] + left_maxima
-                probability = left_probability * match[1] * right_probability
+                probability = left_probability + match[1] + right_probability
                 # if score > threshold_t:
                 info = [left_index, left_genome_index, probability, score]
                 if all(map(lambda x, y: x != y, [v[1] for v in ungapped_matches[extended_sequence]], repeat(left_genome_index))):
@@ -160,8 +171,8 @@ def extension(sequence, start, query, genome_start, dir):
     max_index = start
     max_genome_index = genome_start
     cur_score = 0
-    cur_prob = 1
-    prob_at_max = 1
+    cur_prob = 0
+    prob_at_max = 0
     while drop < threshold:
         if dir == 0:
             start += 1
@@ -189,19 +200,106 @@ def extension(sequence, start, query, genome_start, dir):
     return max_index, max_genome_index, prob_at_max, max_score
 
 
-# Possible probability normalization via taking nth root
-#  of probability where n is the length of the sequence
-# seems to make a difference, and math checks out for doing it only at end
+def gappedExtension(query, ungapped_matches):
+    # Need to perform NW variant on the right and left sides of the remaining query sequence.
+    alignment_info = []
+    for k, v in ungapped_matches.items():
+        for match in v:
+            left_index, genome_index, cur_prob, cur_score = zip(match)
+            left_query = query[:left_index]
+            left_genome_index = genome_index - 1
+            left_info = align(left_query, left_genome_index, True)
+            if isinf(left_info[1]):
+                continue
+            right_query = query[left_index + len(k):]
+            right_genome_index = genome_index + len(k)
+            right_info = align(right_query, right_genome_index)
+            if isinf(right_info[1]):
+                continue
 
-# Gap penalty is the average match score. So average the probability of match at each index
-# Need to calculate average gap penalty still
+            total_score = left_info[2] + cur_score + right_info[2]
+            total_prob = left_info[1] + cur_prob + right_info[1]
+            genome_start_index = genome_index - len(left_info[0])
+            alignment = left_info[0] + k + right_info[0]
+            alignment_info.append(
+                (alignment, total_score, total_prob, genome_start_index))
+    return sorted(alignment_info, key=lambda info: info[1], reverse=True)[:5]
 
+
+def align(query, index, reverse=False):
+    n = len(query)
+    if reverse:
+        if len(genome[index:]) < n:
+            print("Not possible")
+            return ("", -inf, 0)
+        s1 = query[::-1]
+        s2 = genome[index: index -
+                    (2*ceil(float(probability_dictionary["GAP"]) * n) + 1): -1]
+    else:
+        if len(genome[:index]) < n:
+            print("Not possible")
+            return ("", -inf, 0)
+        s1 = query
+        s2 = genome[index: index + 2 *
+                    ceil(float(probability_dictionary["GAP"]) * n)+1]
+    m = len(s2)
+    # Create empty dp array. Structured as (score, probability, prev_x, prev_y)
+    M = [[(0, 0, 0, 0) for _ in range(m + 1)] for _ in range(n + 1)]
+    # Can't align query to gaps in genome so those indices are marked as impossible
+    for i in range(1, n + 1):
+        for j in range(i):
+            M[i][j] = (-inf, 0,  0, 0)
+    for i in range(m - n):
+        for j in range(i+n+1, m + 1):
+            M[i][j] = (-inf, 0, 0, 0)
+
+    for i in range(1, n + 1):
+        for j in range(i, m-n+i+1):
+            s_diag = score(s1[i-1], index+j-1)
+            diagonal = M[i-1][j-1][0] + s_diag[0]
+            left = M[i][j-1][0] - probability_dictionary["GAP"]
+            if diagonal >= left:
+                M[i][j] = (diagonal, M[i-1][j-1][1] + s_diag[1], i-1, j-1)
+            else:
+                # Temporarily set probability to s_diag[1], but it needs to change
+                M[i][j] = (left, M[i][j-1][1] + s_diag[1], i, j-1)
+
+    # Now we need the highest score in the bottom row.
+    index = M[-1].index(max(M[-1]))
+    max_score = M[-1][index][0]
+    max_prob = M[-1][index][1]
+    s1_final = []
+    i = n
+    j = index
+    while i > 0 and j > 0:
+        vals = M[i][j]
+        if vals[-2] == i-1 and vals[-1] == j-1:
+            if reverse:
+                s1_final.insert(s1[i-1])
+            else:
+                s1_final.insert(0, s1[i-1])
+            i -= 1
+            j -= 1
+        else:
+            if reverse:
+                s1_final.insert("_")
+            else:
+                s1_final.insert(0, "_")
+            j -= 1
+    s1_final = "".join(s1_final)
+    return (s1_final, max_prob, max_score)
+
+
+print(datetime.datetime.now())
 genome, probability_dictionary = parseGenome()
-# size_8_mers, size_11_mers, size_15_mers = preprocess()
-# og = "TAAGATGTTGGTATAAATACTCTGGAGCAA"
-# query = "TAAGA_GTAGGTATAAATACTCAGGAGAAA"
+size_8_mers, size_11_mers, size_15_mers = preprocess()
+og = "GAATAGACCCCACCAGGGCGCCCCCTTCAGCAAGGAGTGTGTGCCCACCCAAAGTCCCGCCAAGGAGGGCCAGGCCCTGCCACCGGGAAGGGAGCTGACA"
+query = "GACTAGACCCCACCAGCGCGCCCCCTTCACCAAGGAGTGTGTAGTCCACCCAAAGTCCCGCCAAGGACGGCCCGGCCCTGCCACCGGGAAAGGGAGCTGACA"
 # stripped_seq = "".join(query.split("_"))
 # matches = shortPerfectMatch(stripped_seq)
-# print(matches)
+# # print(matches)
 # ungapped_matches = ungappedExtension(stripped_seq, matches)
 # print(ungapped_matches)
+query = query[65:]
+# align(query, 493148)
+print(datetime.datetime.now())
