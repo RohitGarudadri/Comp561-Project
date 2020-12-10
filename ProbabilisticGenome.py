@@ -1,6 +1,7 @@
 import os
 import operator
 import json
+from math import log10 as log
 from itertools import repeat
 from collections import defaultdict
 __location__ = os.path.realpath(
@@ -10,12 +11,12 @@ __location__ = os.path.realpath(
 def parseGenome():
     probability_file = "Probabilities.txt"
     genome_file = "Genome.txt"
-    if os.path.exists(os.path.join(__location__, "Genome_probabilities.json")):
-        with open(os.path.join(__location__, "Genome_probabilities.json"), "r") as my_file:
-            probability_dictionary = json.load(my_file)
-        with open(os.path.join(__location__, genome_file), "r") as my_file:
-            genome = my_file.readline().strip()
-        return genome, probability_dictionary
+    # if os.path.exists(os.path.join(__location__, "Genome_probabilities.json")):
+    #     with open(os.path.join(__location__, "Genome_probabilities.json"), "r") as my_file:
+    #         probability_dictionary = json.load(my_file)
+    #     with open(os.path.join(__location__, genome_file), "r") as my_file:
+    #         genome = my_file.readline().strip()
+    #     return genome, probability_dictionary
 
     # Extract data from files
     with open(os.path.join(__location__, genome_file),  "r") as my_file:
@@ -26,9 +27,11 @@ def parseGenome():
 
     probability_dictionary = {}
     nucleotides = set(("A", "C", "G", "T"))
+    total_score = 0
     # Convert data to dictionary of probabilities based on index value
     for i in range(len(genome)):
         probability = float(probabilities[i])
+        total_score += probability
         remaining_prob = (1-probability)/3
         nucleotide = genome[i].upper()
         prob_dict = {}
@@ -36,6 +39,8 @@ def parseGenome():
         for nucleotide in nucleotides.difference(set((nucleotide))):
             prob_dict[nucleotide] = remaining_prob
         probability_dictionary[str(i)] = prob_dict
+    gap_score = total_score / len(genome)
+    probability_dictionary["GAP"] = gap_score
 
     # Convert dictionary to json for easy transfer
     prob_dict_json = json.dumps(probability_dictionary)
@@ -65,7 +70,7 @@ def preprocess():
         score8 = 0
         for j in range(i, i+8):
             val = probability_dictionary[str(j)][genome[j]]
-            max_prob8 *= val
+            max_prob8 += log(val)
             score8 += val
         size_8_mers[seq8].append([i, max_prob8, score8])
         if (i < len(genome) - 11):
@@ -74,7 +79,7 @@ def preprocess():
             score11 = 0
             for j in range(i, i+11):
                 val = probability_dictionary[str(j)][genome[j]]
-                max_prob11 *= val
+                max_prob11 += log(val)
                 score11 += val
             size_11_mers[seq11].append([i, max_prob11, score11])
         if (i < len(genome) - 15):
@@ -83,7 +88,7 @@ def preprocess():
             score15 = 0
             for j in range(i, i+15):
                 val = probability_dictionary[str(j)][genome[j]]
-                max_prob15 *= val
+                max_prob15 += log(val)
                 score15 += val
             size_15_mers[seq15].append([i, max_prob15, score15])
 
@@ -118,9 +123,9 @@ def score(nucleotide, index):
     vals = probability_dictionary[str(index)]
     best_nucleotide = max(vals.items(), key=operator.itemgetter(1))[0]
     if nucleotide == best_nucleotide:
-        return vals[nucleotide], vals[nucleotide]
+        return vals[nucleotide], log(vals[nucleotide])
     else:
-        return vals[nucleotide] - vals[best_nucleotide], vals[nucleotide]
+        return vals[nucleotide] - vals[best_nucleotide], log(vals[nucleotide])
 
 
 def ungappedExtension(query, matches):
@@ -171,7 +176,7 @@ def extension(sequence, start, query, genome_start, dir):
 
         vals = score(query[start], genome_start)
         cur_score += vals[0]
-        cur_prob *= vals[1]
+        cur_prob += vals[1]
         if cur_score > max_score:
             max_score = cur_score
             max_index = start
@@ -188,9 +193,11 @@ def extension(sequence, start, query, genome_start, dir):
 #  of probability where n is the length of the sequence
 # seems to make a difference, and math checks out for doing it only at end
 
+# Gap penalty is the average match score. So average the probability of match at each index
+# Need to calculate average gap penalty still
 
 genome, probability_dictionary = parseGenome()
-size_8_mers, size_11_mers, size_15_mers = preprocess()
+# size_8_mers, size_11_mers, size_15_mers = preprocess()
 # og = "TAAGATGTTGGTATAAATACTCTGGAGCAA"
 # query = "TAAGA_GTAGGTATAAATACTCAGGAGAAA"
 # stripped_seq = "".join(query.split("_"))
