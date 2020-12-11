@@ -209,10 +209,6 @@ def gappedExtension(query, ungapped_matches):
             left_index, genome_index, cur_prob, cur_score = tuple(match)
             left_query = query[:left_index]
             left_genome_index = genome_index - 1
-            # if k == "CCTCATCCCAC":
-            #     print(match)
-            #     print(left_query)
-            #     print(len(left_query))
             left_info = align(left_query, left_genome_index, True)
             if isinf(left_info[1]):
                 continue
@@ -248,8 +244,6 @@ def align(query, index, reverse=False):
     if m < n:
         print("Not possible")
         return ("", -inf, 0)
-    # if query == "GAGGGGAGAGCGGGCCCGGCGGGCTCCGGGAGGAGGTGG":
-    #     print(s2)
     # Create empty dp array. Structured as (score, probability, prev_x, prev_y)
     M = [[(0, 0, 0, 0) for _ in range(m + 1)] for _ in range(n + 1)]
     # Can't align query to gaps in genome so those indices are marked as impossible
@@ -314,10 +308,10 @@ for file in sequence_files:
         for i in range(len(seqs)):
             print(datetime.datetime.now())
 
-            print("i= ", i)
+            # print("i= ", i)
             alignments = {}
             for j in range(3):
-                print("j= ", j)
+                # print("j= ", j)
                 query = seqs[i][j+1]
                 stripped_seq = "".join(query.split("_"))
                 matches = shortPerfectMatch(stripped_seq)
