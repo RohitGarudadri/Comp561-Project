@@ -295,41 +295,64 @@ print(datetime.datetime.now())
 genome, probability_dictionary = parseGenome()
 size_8_mers, size_11_mers, size_15_mers = preprocess()
 # print(len(probability_dictionary))
-sequence_files = ["query_seq300.txt",
-                  "query_seq500.txt", "query_seq1000.txt"]
-for file in sequence_files:
-    new_file = file.split(".")[0]+"_8" + ".json"
-    with open(os.path.join(__location__, "Query Seqs", file), "r") as seq_file:
-        print(file)
-        seqs = []
-        for line in seq_file:
-            seqs.append(line.strip().split(" "))
-        seq_alignments = {}
-        for i in range(len(seqs)):
-            print(datetime.datetime.now())
+# sequence_files = ["query_seq100.txt", "query_seq300.txt",
+#                   "query_seq500.txt", "query_seq1000.txt"]
+# for file in sequence_files:
+#     new_file = file.split(".")[0]+"_8" + ".json"
+#     with open(os.path.join(__location__, "Query Seqs", file), "r") as seq_file:
+#         print(file)
+#         seqs = []
+#         for line in seq_file:
+#             seqs.append(line.strip().split(" "))
+#         seq_alignments = {}
+#         for i in range(len(seqs)):
+#             print(datetime.datetime.now())
 
-            print("i=", i)
-            alignments = {}
-            for j in range(3):
-                print("j=", j)
-                query = seqs[i][j+1]
-                stripped_seq = "".join(query.split("_"))
-                matches = shortPerfectMatch(stripped_seq, 8)
-                # # print(matches)
-                ungapped_matches = ungappedExtension(stripped_seq, matches)
-                # print(ungapped_matches)
-                final_matches = gappedExtension(stripped_seq, ungapped_matches)
-                # print(final_matches)
-                alignments[query] = final_matches
-            seq_alignments[seqs[i][0]] = alignments
-    with open(os.path.join(__location__, "Query Predictions", new_file), "w") as align_file:
-        align_file.write(json.dumps(seq_alignments))
-# query = "GTCTCTAGCTGTCCGAGGCTTGGGCAACCACCTAGCCTCTATGAGCCTTAGGTGACACATAGGTAGAAATCATAGTACTT_CCTGATCTAGGGTTGAGATTAA_AATGCCTGGAATACCTGATC_GGCAGATGGAGAATTCCACACAGTCCTTGGCACACAGTAGG_CTTCAGCGGATATTATCCGTGTAGATTCATATTTCCTGGCACAAGTTCAGTGTCTCCACCTCATCCCACAGTTGACTCAGGATCTGATGATGCCAGTTCACAGTTCTCTAG_CCTCTTTTCTACCCAAACCCCAAACCTCGTTTAGGACCTTTCATTGCTCATAATGCAGGTCGCCACTTCATTGGCAGCACCCTTAGGAAGATTTGTTGAGGGAAGGTTGAAATTTATAGGAAAATTGACGTGTCT_CAGTGTCTGTGGAGCTGTCAGGTCCTCTGGCCAC_GGTGGAGGATGGGGTGTGCTTTCGCCTGGCCCGGAGCCCAGGCCTGCCGTCATGAGAAGATGGAGT"
-# stripped_seq = "".join(query.split("_"))
-# matches = shortPerfectMatch(stripped_seq)
-# # # print(matches)
-# ungapped_matches = ungappedExtension(stripped_seq, matches)
-# # print(ungapped_matches)
-# final_matches = gappedExtension(stripped_seq, ungapped_matches)
-# print(final_matches)
+#             print("i=", i)
+#             alignments = {}
+#             for j in range(3):
+#                 print("j=", j)
+#                 query = seqs[i][j+1]
+#                 stripped_seq = "".join(query.split("_"))
+#                 matches = shortPerfectMatch(stripped_seq, 8)
+#                 # # print(matches)
+#                 ungapped_matches = ungappedExtension(stripped_seq, matches)
+#                 # print(ungapped_matches)
+#                 final_matches = gappedExtension(stripped_seq, ungapped_matches)
+#                 # print(final_matches)
+#                 alignments[query] = final_matches
+#             seq_alignments[seqs[i][0]] = alignments
+#     with open(os.path.join(__location__, "Query Predictions", new_file), "w") as align_file:
+#         align_file.write(json.dumps(seq_alignments))
+# for i, file in enumerate([f for f in os.listdir(os.path.join(__location__, "Query Predictions")) if os.path.isfile(os.path.join(__location__, "Query Predictions", f))]):
+#     with open(os.path.join(__location__, "Query Predictions", file), "r+") as myfile:
+#         print(file)
+#         predictions = json.load(myfile)
+#         k = list(predictions.keys())[0]
+#         if len(k) == 100:
+#             with open(os.path.join(__location__, "Query Seqs", "query_seq100.txt"), "r") as seq_file:
+#                 seqs = []
+#                 for line in seq_file:
+#                     seqs.append(line.strip().split(" "))
+#         elif len(k) == 300:
+#             with open(os.path.join(__location__, "Query Seqs", "query_seq300.txt"), "r") as seq_file:
+#                 seqs = []
+#                 for line in seq_file:
+#                     seqs.append(line.strip().split(" "))
+#         elif len(k) == 500:
+#             with open(os.path.join(__location__, "Query Seqs", "query_seq500.txt"), "r") as seq_file:
+#                 seqs = []
+#                 for line in seq_file:
+#                     seqs.append(line.strip().split(" "))
+#         else:
+#             with open(os.path.join(__location__, "Query Seqs", "query_seq1000.txt"), "r") as seq_file:
+#                 seqs = []
+#                 for line in seq_file:
+#                     seqs.append(line.strip().split(" "))
+#         og_seqs = [seq for seq in [seqs[i][0] for i in range(len(seqs))]]
+#         for k, v in predictions.items():
+#             index = og_seqs.index(k)
+#             v["Correct"] = int(seqs[index][-2])
+#         myfile.write(json.dumps(predictions))
+
 print(datetime.datetime.now())
