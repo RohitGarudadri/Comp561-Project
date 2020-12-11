@@ -1,72 +1,72 @@
-1.1.1 Accuracy is: 33%
-1.1.2 Accuracy is: 25%
-1.1.3 Accuracy is: 25%
-1.1.4 Accuracy is: 45%
-1.1.5 Accuracy is: 22%
-The average accuracy for 1.1 is: 30%
-1.2.1 Accuracy is: 22%
+1.1.1 Accuracy is: 34%
+1.1.2 Accuracy is: 26%
+1.1.3 Accuracy is: 26%
+1.1.4 Accuracy is: 46%
+1.1.5 Accuracy is: 23%
+The average accuracy for 1.1 is: 31%
+1.2.1 Accuracy is: 23%
 1.2.2 Accuracy is: 29%
-1.2.3 Accuracy is: 23%
-1.2.4 Accuracy is: 26%
-1.2.5 Accuracy is: 27%
+1.2.3 Accuracy is: 24%
+1.2.4 Accuracy is: 27%
+1.2.5 Accuracy is: 28%
 The average accuracy for 1.2 is: 26%
-1.3.1 Accuracy is: 23%
-1.3.2 Accuracy is: 22%
-1.3.3 Accuracy is: 26%
-1.3.4 Accuracy is: 23%
-1.3.5 Accuracy is: 25%
-The average accuracy for 1.3 is: 24%
-2.1.1 Accuracy is: 34%
+1.3.1 Accuracy is: 24%
+1.3.2 Accuracy is: 23%
+1.3.3 Accuracy is: 27%
+1.3.4 Accuracy is: 24%
+1.3.5 Accuracy is: 26%
+The average accuracy for 1.3 is: 25%
+2.1.1 Accuracy is: 35%
 2.1.2 Accuracy is: 28%
-2.1.3 Accuracy is: 39%
+2.1.3 Accuracy is: 40%
 2.1.4 Accuracy is: 26%
-2.1.5 Accuracy is: 26%
+2.1.5 Accuracy is: 27%
 The average accuracy for 2.1 is: 31%
-2.2.1 Accuracy is: 26%
-2.2.2 Accuracy is: 22%
+2.2.1 Accuracy is: 27%
+2.2.2 Accuracy is: 23%
 2.2.3 Accuracy is: 24%
 2.2.4 Accuracy is: 24%
-2.2.5 Accuracy is: 24%
-The average accuracy for 2.2 is: 24%
+2.2.5 Accuracy is: 25%
+The average accuracy for 2.2 is: 25%
 2.3.1 Accuracy is: 24%
-2.3.2 Accuracy is: 22%
+2.3.2 Accuracy is: 23%
 2.3.3 Accuracy is: 23%
-2.3.4 Accuracy is: 24%
+2.3.4 Accuracy is: 25%
 2.3.5 Accuracy is: 52%
-The average accuracy for 2.3 is: 29%
-3.1.1 Accuracy is: 30%
-3.1.2 Accuracy is: 22%
-3.1.3 Accuracy is: 24%
-3.1.4 Accuracy is: 42%
-3.1.5 Accuracy is: 28%
-The average accuracy for 3.1 is: 29%
-3.2.1 Accuracy is: 31%
-3.2.2 Accuracy is: 41%
-3.2.3 Accuracy is: 40%
-3.2.4 Accuracy is: 28%
-3.2.5 Accuracy is: 29%
-The average accuracy for 3.2 is: 34%
-3.3.1 Accuracy is: 28%
-3.3.2 Accuracy is: 42%
-3.3.3 Accuracy is: 42%
-3.3.4 Accuracy is: 46%
-3.3.5 Accuracy is: 27%
-The average accuracy for 3.3 is: 37%
-4.1.1 Accuracy is: 30%
-4.1.2 Accuracy is: 28%
-4.1.3 Accuracy is: 26%
-4.1.4 Accuracy is: 29%
-4.1.5 Accuracy is: 40%
-The average accuracy for 4.1 is: 30%
-4.2.1 Accuracy is: 32%
-4.2.2 Accuracy is: 29%
-4.2.3 Accuracy is: 26%
-4.2.4 Accuracy is: 24%
-4.2.5 Accuracy is: 32%
-The average accuracy for 4.2 is: 29%
-4.3.1 Accuracy is: 32%
-4.3.2 Accuracy is: 30%
-4.3.3 Accuracy is: 29%
-4.3.4 Accuracy is: 33%
-4.3.5 Accuracy is: 46%
-The average accuracy for 4.3 is: 34%
+The average accuracy for 2.3 is: 30%
+3.1.1 Accuracy is: 33%
+3.1.2 Accuracy is: 25%
+3.1.3 Accuracy is: 27%
+3.1.4 Accuracy is: 44%
+3.1.5 Accuracy is: 31%
+The average accuracy for 3.1 is: 32%
+3.2.1 Accuracy is: 34%
+3.2.2 Accuracy is: 44%
+3.2.3 Accuracy is: 43%
+3.2.4 Accuracy is: 31%
+3.2.5 Accuracy is: 32%
+The average accuracy for 3.2 is: 37%
+3.3.1 Accuracy is: 31%
+3.3.2 Accuracy is: 45%
+3.3.3 Accuracy is: 44%
+3.3.4 Accuracy is: 48%
+3.3.5 Accuracy is: 30%
+The average accuracy for 3.3 is: 40%
+4.1.1 Accuracy is: 31%
+4.1.2 Accuracy is: 29%
+4.1.3 Accuracy is: 28%
+4.1.4 Accuracy is: 30%
+4.1.5 Accuracy is: 42%
+The average accuracy for 4.1 is: 32%
+4.2.1 Accuracy is: 33%
+4.2.2 Accuracy is: 30%
+4.2.3 Accuracy is: 28%
+4.2.4 Accuracy is: 26%
+4.2.5 Accuracy is: 34%
+The average accuracy for 4.2 is: 30%
+4.3.1 Accuracy is: 33%
+4.3.2 Accuracy is: 32%
+4.3.3 Accuracy is: 31%
+4.3.4 Accuracy is: 35%
+4.3.5 Accuracy is: 48%
+The average accuracy for 4.3 is: 36%
