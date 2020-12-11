@@ -204,10 +204,15 @@ def gappedExtension(query, ungapped_matches):
     # Need to perform NW variant on the right and left sides of the remaining query sequence.
     alignment_info = []
     for k, v in ungapped_matches.items():
-        for match in v:
-            left_index, genome_index, cur_prob, cur_score = zip(match)
+        for i, match in enumerate(v):
+            # print(k, i)
+            left_index, genome_index, cur_prob, cur_score = tuple(match)
             left_query = query[:left_index]
             left_genome_index = genome_index - 1
+            # if k == "CCTCATCCCAC":
+            #     print(match)
+            #     print(left_query)
+            #     print(len(left_query))
             left_info = align(left_query, left_genome_index, True)
             if isinf(left_info[1]):
                 continue
@@ -229,20 +234,22 @@ def gappedExtension(query, ungapped_matches):
 def align(query, index, reverse=False):
     n = len(query)
     if reverse:
-        if len(genome[index:]) < n:
-            print("Not possible")
-            return ("", -inf, 0)
         s1 = query[::-1]
-        s2 = genome[index: index -
-                    (2*ceil(float(probability_dictionary["GAP"]) * n) + 1): -1]
+        new_index = max(index -
+                        (2*ceil(float(probability_dictionary["GAP"]) * n) + 1), 0)
+        s2 = genome[index: new_index: -1]
+        index = new_index
     else:
-        if len(genome[:index]) < n:
-            print("Not possible")
-            return ("", -inf, 0)
+
         s1 = query
         s2 = genome[index: index + 2 *
                     ceil(float(probability_dictionary["GAP"]) * n)+1]
     m = len(s2)
+    if m < n:
+        print("Not possible")
+        return ("", -inf, 0)
+    # if query == "GAGGGGAGAGCGGGCCCGGCGGGCTCCGGGAGGAGGTGG":
+    #     print(s2)
     # Create empty dp array. Structured as (score, probability, prev_x, prev_y)
     M = [[(0, 0, 0, 0) for _ in range(m + 1)] for _ in range(n + 1)]
     # Can't align query to gaps in genome so those indices are marked as impossible
@@ -275,14 +282,14 @@ def align(query, index, reverse=False):
         vals = M[i][j]
         if vals[-2] == i-1 and vals[-1] == j-1:
             if reverse:
-                s1_final.insert(s1[i-1])
+                s1_final.append(s1[i-1])
             else:
                 s1_final.insert(0, s1[i-1])
             i -= 1
             j -= 1
         else:
             if reverse:
-                s1_final.insert("_")
+                s1_final.append("_")
             else:
                 s1_final.insert(0, "_")
             j -= 1
@@ -293,13 +300,42 @@ def align(query, index, reverse=False):
 print(datetime.datetime.now())
 genome, probability_dictionary = parseGenome()
 size_8_mers, size_11_mers, size_15_mers = preprocess()
-og = "GAATAGACCCCACCAGGGCGCCCCCTTCAGCAAGGAGTGTGTGCCCACCCAAAGTCCCGCCAAGGAGGGCCAGGCCCTGCCACCGGGAAGGGAGCTGACA"
-query = "GACTAGACCCCACCAGCGCGCCCCCTTCACCAAGGAGTGTGTAGTCCACCCAAAGTCCCGCCAAGGACGGCCCGGCCCTGCCACCGGGAAAGGGAGCTGACA"
+# print(len(probability_dictionary))
+sequence_files = ["query_seq100.txt", "query_seq300.txt",
+                  "query_seq500.txt", "query_seq1000.txt"]
+for file in sequence_files:
+    new_file = file.split(".")[0]+".json"
+    with open(os.path.join(__location__, "Query Seqs", file), "r") as seq_file:
+        print(file)
+        seqs = []
+        for line in seq_file:
+            seqs.append(line.strip().split(" "))
+        seq_alignments = {}
+        for i in range(len(seqs)):
+            print(datetime.datetime.now())
+
+            print("i= ", i)
+            alignments = {}
+            for j in range(3):
+                print("j= ", j)
+                query = seqs[i][j+1]
+                stripped_seq = "".join(query.split("_"))
+                matches = shortPerfectMatch(stripped_seq)
+                # # print(matches)
+                ungapped_matches = ungappedExtension(stripped_seq, matches)
+                # print(ungapped_matches)
+                final_matches = gappedExtension(stripped_seq, ungapped_matches)
+                # print(final_matches)
+                alignments[query] = final_matches
+            seq_alignments[seqs[i][0]] = alignments
+    with open(os.path.join(__location__, "Query Predictions", new_file), "w") as align_file:
+        align_file.write(json.dumps(seq_alignments))
+# query = "GTCTCTAGCTGTCCGAGGCTTGGGCAACCACCTAGCCTCTATGAGCCTTAGGTGACACATAGGTAGAAATCATAGTACTT_CCTGATCTAGGGTTGAGATTAA_AATGCCTGGAATACCTGATC_GGCAGATGGAGAATTCCACACAGTCCTTGGCACACAGTAGG_CTTCAGCGGATATTATCCGTGTAGATTCATATTTCCTGGCACAAGTTCAGTGTCTCCACCTCATCCCACAGTTGACTCAGGATCTGATGATGCCAGTTCACAGTTCTCTAG_CCTCTTTTCTACCCAAACCCCAAACCTCGTTTAGGACCTTTCATTGCTCATAATGCAGGTCGCCACTTCATTGGCAGCACCCTTAGGAAGATTTGTTGAGGGAAGGTTGAAATTTATAGGAAAATTGACGTGTCT_CAGTGTCTGTGGAGCTGTCAGGTCCTCTGGCCAC_GGTGGAGGATGGGGTGTGCTTTCGCCTGGCCCGGAGCCCAGGCCTGCCGTCATGAGAAGATGGAGT"
 # stripped_seq = "".join(query.split("_"))
 # matches = shortPerfectMatch(stripped_seq)
-# # print(matches)
+# # # print(matches)
 # ungapped_matches = ungappedExtension(stripped_seq, matches)
-# print(ungapped_matches)
-query = query[65:]
-# align(query, 493148)
+# # print(ungapped_matches)
+# final_matches = gappedExtension(stripped_seq, ungapped_matches)
+# print(final_matches)
 print(datetime.datetime.now())
