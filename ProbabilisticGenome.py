@@ -3,7 +3,7 @@ import os
 import operator
 import json
 import datetime
-from math import log10, inf, isinf, ceil
+from math import log10, isinf, ceil
 from itertools import repeat
 from collections import defaultdict
 __location__ = os.path.realpath(
@@ -247,7 +247,7 @@ def align(query, index, reverse=False):
     m = len(s2)
     if m < n:
         print("Not possible")
-        return ("", -inf, 0)
+        return ("", float("-inf"), 0)
     # if query == "GAGGGGAGAGCGGGCCCGGCGGGCTCCGGGAGGAGGTGG":
     #     print(s2)
     # Create empty dp array. Structured as (score, probability, prev_x, prev_y)
@@ -255,10 +255,10 @@ def align(query, index, reverse=False):
     # Can't align query to gaps in genome so those indices are marked as impossible
     for i in range(1, n + 1):
         for j in range(i):
-            M[i][j] = (-inf, 0,  0, 0)
+            M[i][j] = (float("-inf"), 0,  0, 0)
     for i in range(m - n):
         for j in range(i+n+1, m + 1):
-            M[i][j] = (-inf, 0, 0, 0)
+            M[i][j] = (float("-inf"), 0, 0, 0)
 
     for i in range(1, n + 1):
         for j in range(i, m-n+i+1):
