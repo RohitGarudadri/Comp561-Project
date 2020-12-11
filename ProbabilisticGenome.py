@@ -301,8 +301,7 @@ print(datetime.datetime.now())
 genome, probability_dictionary = parseGenome()
 size_8_mers, size_11_mers, size_15_mers = preprocess()
 # print(len(probability_dictionary))
-sequence_files = ["query_seq100.txt", "query_seq300.txt",
-                  "query_seq500.txt", "query_seq1000.txt"]
+sequence_files = ["query_seq1000.txt"]
 for file in sequence_files:
     new_file = file.split(".")[0]+".json"
     with open(os.path.join(__location__, "Query Seqs", file), "r") as seq_file:
