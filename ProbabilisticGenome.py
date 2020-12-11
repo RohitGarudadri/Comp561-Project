@@ -295,10 +295,10 @@ print(datetime.datetime.now())
 genome, probability_dictionary = parseGenome()
 size_8_mers, size_11_mers, size_15_mers = preprocess()
 # print(len(probability_dictionary))
-sequence_files = ["query_seq100.txt", "query_seq300.txt",
+sequence_files = ["query_seq300.txt",
                   "query_seq500.txt", "query_seq1000.txt"]
 for file in sequence_files:
-    new_file = file.split(".")[0]+".json"
+    new_file = file.split(".")[0]+"_8" + ".json"
     with open(os.path.join(__location__, "Query Seqs", file), "r") as seq_file:
         print(file)
         seqs = []
@@ -308,13 +308,13 @@ for file in sequence_files:
         for i in range(len(seqs)):
             print(datetime.datetime.now())
 
-            # print("i= ", i)
+            print("i=", i)
             alignments = {}
             for j in range(3):
-                # print("j= ", j)
+                print("j=", j)
                 query = seqs[i][j+1]
                 stripped_seq = "".join(query.split("_"))
-                matches = shortPerfectMatch(stripped_seq)
+                matches = shortPerfectMatch(stripped_seq, 8)
                 # # print(matches)
                 ungapped_matches = ungappedExtension(stripped_seq, matches)
                 # print(ungapped_matches)
