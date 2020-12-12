@@ -1,206 +1,206 @@
 The predicted index was: 152726
-1.1.1 Accuracy is: 52%
+1.1.1 Accuracy is: 52.686005%
 
 The predicted index was: 152743
-1.1.2 Accuracy is: 34%
+1.1.2 Accuracy is: 34.921059%
 
 The predicted index was: 152650
-1.1.3 Accuracy is: 29%
+1.1.3 Accuracy is: 29.826785%
 
 The predicted index was: 393892
-1.1.4 Accuracy is: 23%
+1.1.4 Accuracy is: 23.303131%
 
 The predicted index was: 472475
-1.1.5 Accuracy is: 21%
+1.1.5 Accuracy is: 21.491602%
 
-The average accuracy for 1.1 is: 32%
+The average accuracy for 1.1 is: 32.445716%
 
 The predicted index was: 152743
-1.2.1 Accuracy is: 72%
+1.2.1 Accuracy is: 72.539312%
 
 The predicted index was: 152707
-1.2.2 Accuracy is: 38%
+1.2.2 Accuracy is: 38.441406%
 
 The predicted index was: 152682
-1.2.3 Accuracy is: 25%
+1.2.3 Accuracy is: 25.191838%
 
 The predicted index was: 152719
-1.2.4 Accuracy is: 38%
+1.2.4 Accuracy is: 38.212186%
 
 The predicted index was: 152725
-1.2.5 Accuracy is: 32%
+1.2.5 Accuracy is: 32.765560%
 
-The average accuracy for 1.2 is: 41%
+The average accuracy for 1.2 is: 41.430060%
 
 The predicted index was: 152674
-1.3.1 Accuracy is: 32%
+1.3.1 Accuracy is: 32.746964%
 
 The predicted index was: 152736
-1.3.2 Accuracy is: 32%
+1.3.2 Accuracy is: 32.813707%
 
 The predicted index was: 152656
-1.3.3 Accuracy is: 24%
+1.3.3 Accuracy is: 24.797902%
 
 The predicted index was: 152690
-1.3.4 Accuracy is: 25%
+1.3.4 Accuracy is: 25.349445%
 
-The average accuracy for 1.3 is: 28%
+The average accuracy for 1.3 is: 28.927005%
 
 The original index is : 152745
 
 The predicted index was: 439997
-2.1.1 Accuracy is: 61%
+2.1.1 Accuracy is: 61.597921%
 
 The predicted index was: 439980
-2.1.2 Accuracy is: 40%
+2.1.2 Accuracy is: 40.782195%
 
 The predicted index was: 439924
-2.1.3 Accuracy is: 38%
+2.1.3 Accuracy is: 38.025205%
 
 The predicted index was: 439916
-2.1.4 Accuracy is: 27%
+2.1.4 Accuracy is: 27.781137%
 
 The predicted index was: 439881
-2.1.5 Accuracy is: 29%
+2.1.5 Accuracy is: 29.703440%
 
-The average accuracy for 2.1 is: 39%
+The average accuracy for 2.1 is: 39.577980%
 
 The predicted index was: 439997
-2.2.1 Accuracy is: 41%
+2.2.1 Accuracy is: 41.973784%
 
 The predicted index was: 439978
-2.2.2 Accuracy is: 51%
+2.2.2 Accuracy is: 51.298651%
 
 The predicted index was: 439942
-2.2.3 Accuracy is: 33%
+2.2.3 Accuracy is: 33.248629%
 
 The predicted index was: 439887
-2.2.4 Accuracy is: 29%
+2.2.4 Accuracy is: 29.641643%
 
 The predicted index was: 439914
-2.2.5 Accuracy is: 23%
+2.2.5 Accuracy is: 23.205356%
 
-The average accuracy for 2.2 is: 35%
+The average accuracy for 2.2 is: 35.873613%
 
 The predicted index was: 439947
-2.3.1 Accuracy is: 54%
+2.3.1 Accuracy is: 54.655020%
 
 The predicted index was: 439924
-2.3.2 Accuracy is: 41%
+2.3.2 Accuracy is: 41.719193%
 
 The predicted index was: 439975
-2.3.3 Accuracy is: 37%
+2.3.3 Accuracy is: 37.083632%
 
 The predicted index was: 439997
-2.3.4 Accuracy is: 30%
+2.3.4 Accuracy is: 30.433636%
 
 The predicted index was: 439919
-2.3.5 Accuracy is: 27%
+2.3.5 Accuracy is: 27.628816%
 
-The average accuracy for 2.3 is: 38%
+The average accuracy for 2.3 is: 38.304059%
 
 The original index is : 439997
 
 The predicted index was: 374756
-3.1.1 Accuracy is: 48%
+3.1.1 Accuracy is: 48.778889%
 
 The predicted index was: 374726
-3.1.2 Accuracy is: 41%
+3.1.2 Accuracy is: 41.135591%
 
 The predicted index was: 374771
-3.1.3 Accuracy is: 39%
+3.1.3 Accuracy is: 39.290715%
 
 The predicted index was: 374780
-3.1.4 Accuracy is: 36%
+3.1.4 Accuracy is: 36.725906%
 
 The predicted index was: 374787
-3.1.5 Accuracy is: 33%
+3.1.5 Accuracy is: 33.193446%
 
-The average accuracy for 3.1 is: 39%
+The average accuracy for 3.1 is: 39.824909%
 
 The predicted index was: 374759
-3.2.1 Accuracy is: 46%
+3.2.1 Accuracy is: 46.221475%
 
 The predicted index was: 374761
-3.2.2 Accuracy is: 36%
+3.2.2 Accuracy is: 36.080254%
 
 The predicted index was: 374770
-3.2.3 Accuracy is: 34%
+3.2.3 Accuracy is: 34.033913%
 
 The predicted index was: 513465
-3.2.4 Accuracy is: 29%
+3.2.4 Accuracy is: 29.157762%
 
 The predicted index was: 374724
-3.2.5 Accuracy is: 34%
+3.2.5 Accuracy is: 34.142611%
 
-The average accuracy for 3.2 is: 35%
+The average accuracy for 3.2 is: 35.927203%
 
 The predicted index was: 374745
-3.3.1 Accuracy is: 54%
+3.3.1 Accuracy is: 54.840575%
 
 The predicted index was: 374774
-3.3.2 Accuracy is: 42%
+3.3.2 Accuracy is: 42.095302%
 
 The predicted index was: 374733
-3.3.3 Accuracy is: 40%
+3.3.3 Accuracy is: 40.972435%
 
 The predicted index was: 374787
-3.3.4 Accuracy is: 36%
+3.3.4 Accuracy is: 36.437471%
 
 The predicted index was: 393960
-3.3.5 Accuracy is: 24%
+3.3.5 Accuracy is: 24.153981%
 
-The average accuracy for 3.3 is: 39%
+The average accuracy for 3.3 is: 39.699953%
 
 The original index is : 374787
 
 The predicted index was: 268692
-4.1.1 Accuracy is: 51%
+4.1.1 Accuracy is: 51.833728%
 
 The predicted index was: 268707
-4.1.2 Accuracy is: 68%
+4.1.2 Accuracy is: 68.798973%
 
 The predicted index was: 268662
-4.1.3 Accuracy is: 39%
+4.1.3 Accuracy is: 39.552448%
 
 The predicted index was: 268633
-4.1.4 Accuracy is: 41%
+4.1.4 Accuracy is: 41.135278%
 
 The predicted index was: 268649
-4.1.5 Accuracy is: 42%
+4.1.5 Accuracy is: 42.054270%
 
-The average accuracy for 4.1 is: 48%
+The average accuracy for 4.1 is: 48.674940%
 
 The predicted index was: 268652
-4.2.1 Accuracy is: 42%
+4.2.1 Accuracy is: 42.840302%
 
 The predicted index was: 268702
-4.2.2 Accuracy is: 46%
+4.2.2 Accuracy is: 46.770869%
 
 The predicted index was: 268705
-4.2.3 Accuracy is: 38%
+4.2.3 Accuracy is: 38.764349%
 
 The predicted index was: 268659
-4.2.4 Accuracy is: 33%
+4.2.4 Accuracy is: 33.621542%
 
-The average accuracy for 4.2 is: 40%
+The average accuracy for 4.2 is: 40.499265%
 
 The predicted index was: 268678
-4.3.1 Accuracy is: 51%
+4.3.1 Accuracy is: 51.671446%
 
 The predicted index was: 268632
-4.3.2 Accuracy is: 40%
+4.3.2 Accuracy is: 40.918528%
 
 The predicted index was: 268696
-4.3.3 Accuracy is: 40%
+4.3.3 Accuracy is: 40.816052%
 
 The predicted index was: 268682
-4.3.4 Accuracy is: 36%
+4.3.4 Accuracy is: 36.629543%
 
 The predicted index was: 268707
-4.3.5 Accuracy is: 35%
+4.3.5 Accuracy is: 35.175861%
 
-The average accuracy for 4.3 is: 41%
+The average accuracy for 4.3 is: 41.042286%
 
 The original index is : 268707
 
