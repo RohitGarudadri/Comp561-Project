@@ -44,7 +44,7 @@ The predicted index was: 152656
 The predicted index was: 152690
 1.3.4 Accuracy is: 25%
 
-The average accuracy for 1.3 is: 23%
+The average accuracy for 1.3 is: 28%
 
 The original index is : 152745
 
@@ -183,7 +183,7 @@ The predicted index was: 268705
 The predicted index was: 268659
 4.2.4 Accuracy is: 33%
 
-The average accuracy for 4.2 is: 32%
+The average accuracy for 4.2 is: 40%
 
 The predicted index was: 268678
 4.3.1 Accuracy is: 51%
