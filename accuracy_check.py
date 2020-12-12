@@ -5,8 +5,8 @@ from collections import defaultdict
 
 with open('Genome_probabilities.txt') as json_file:
     data = json.load(json_file)
-    f = open("accuracies100_8.txt", "a")
-    with open('query_seq100_8.json') as json_file:
+    f = open("accuracies300_8.txt", "a")
+    with open('query_seq300_8.json') as json_file:
         seqs = json.load(json_file)
 
         base_seq_num = 0
@@ -24,9 +24,11 @@ with open('Genome_probabilities.txt') as json_file:
                 mod_num = mod_num + 1
                 alignment_num = 0
                 mod_avg = 0
+                seq_count = 0
 
 
                 for object in list_of_objects:  # loops 5 times
+                    seq_count = seq_count + 1
                     alignment_num = alignment_num + 1
                     predicted_alignment = object[0]
                     predicted_index = object[3]
@@ -69,7 +71,7 @@ with open('Genome_probabilities.txt') as json_file:
                     f.write('%d Accuracy is: ' % alignment_num)
                     f.write('%d' % fin_accuracy)
                     f.write('%\n\n')
-                mod_avg = (mod_avg / 5) * 100
+                mod_avg = (mod_avg / seq_count) * 100
                 f.write('The average accuracy for %d.' % base_seq_num)
                 f.write('%d is: ' % mod_num)
                 f.write('%d' % mod_avg)
